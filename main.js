@@ -37,18 +37,30 @@ createApp({
     },
   },
   computed: {
-    searchFilter() {
-      this.events = this.eventsFiltered.filter((event) =>
+    // searchFilter() {
+    //   this.events = this.eventsFiltered.filter((event) =>
+    //     event.name.toLowerCase().includes(this.searchText.toLowerCase())
+    //   );
+    // },
+    // categoryFilter() {
+    //   if (this.categoryEvents.length > 0) {
+    //     this.events = this.eventsFiltered.filter((event) =>
+    //       this.categoryEvents.includes(event.category)
+    //     );
+    //   } else {
+    //     this.events = this.eventsFiltered;
+    //   }
+    //   },
+    checkboxAndBarFilter() {
+      let searchFilter = this.eventsFiltered.filter((event) =>
         event.name.toLowerCase().includes(this.searchText.toLowerCase())
       );
-    },
-    categoryFilter() {
       if (this.categoryEvents.length > 0) {
-        this.events = this.eventsFiltered.filter((event) =>
+        this.events = searchFilter.filter((event) =>
           this.categoryEvents.includes(event.category)
         );
       } else {
-        this.events = this.eventsFiltered;
+        this.events = searchFilter;
       }
     },
   },
