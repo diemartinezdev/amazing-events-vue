@@ -35,7 +35,17 @@ createApp({
         }
       });
     },
-    
+    getParams() {
+      const title = document.title.split(" ")[0].toLowerCase();
+      if (title.includes("past") || title.includes("upcoming")) return "?time=" + title;
+      if (title.includes("details")) return "/" + this.extractIdFromUrl();
+      if (title.includes("stats")) return "stats";
+      return "";
+  },
+    extractIdFromUrl: () => new URLSearchParams(window.location.search).get("_id"),
+        selectEvent() {
+            this.contactContent.event = this.events.find((e) => e._id == this.extractIdFromUrl())?.name || "not-selected"; //Si no se encuentra, no se accede a name, y entonces se asigna "not-selected"
+        },
   },
   computed: {
     // searchFilter() {
