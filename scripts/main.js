@@ -13,7 +13,6 @@ createApp({
   created() {
     this.fetchingData();
   },
-  mounted() {},
   methods: {
     fetchingData() {
       fetch(this.urlApi)
