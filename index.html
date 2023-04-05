@@ -81,7 +81,7 @@
 
         <div class="d-flex flex-wrap gap-5 justify-content-center p-5">
           <div v-for="event of events" class="card h-100 shadow" style="width: 22rem">
-            <img :src="event.image" class="card-img-top shadow" :alt="'Image of '+event.name">
+            <img :src="event.image" class="card-img-top shadow" :alt="event.name">
             <div class="card-body">
               <h5 class="card-title">{{event.name}}</h5>
               <p class="card-text fst-italic fw-bold" style="color: #0dcaf0">
