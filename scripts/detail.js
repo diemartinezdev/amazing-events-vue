@@ -3,9 +3,8 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
-        urlApi: "",
-        events: [],
-      _id: "",
+      urlApi: undefined,
+      id: undefined,
       urlParameter: "",
       parameter: undefined,
       detailCard: undefined,
@@ -15,12 +14,12 @@ createApp({
     fetch("https://mindhub-xj03.onrender.com/api/amazing")
       .then((response) => response.json())
       .then((data) => {
-          this.urlApi = data.events;
-          this.events = events;
+        this.urlApi = data.events;
         this.urlParameter = location.search;
         this.parameter = new URLSearchParams(this.urlParameter);
-        this._id = this.parameter.get("_id");
-        this.detailCard = this.urlApi.find((event) => event._id == this._id);
+        this.id = this.parameter.get("id");
+        this.detailCard = this.urlApi.find((event) => event._id == this.id);
+        console.log(detailCard);
       })
 
       .catch((error) => console.log(error.message));
