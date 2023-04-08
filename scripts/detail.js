@@ -7,7 +7,7 @@ createApp({
       id: undefined,
       urlParameter: "",
       parameter: undefined,
-      detailCard: undefined,
+      detailCard: undefined
     };
   },
   created() {
@@ -19,10 +19,9 @@ createApp({
         this.parameter = new URLSearchParams(this.urlParameter);
         this.id = this.parameter.get("id");
         this.detailCard = this.urlApi.find((event) => event._id == this.id);
-        console.log(detailCard);
       })
 
       .catch((error) => console.log(error.message));
   },
-  methods: {},
+  methods: {}
 }).mount("#app");
