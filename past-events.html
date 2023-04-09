@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+    <div id="app">
     <header>
         <!-- Superior nav -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -35,7 +35,7 @@
                             <a class="nav-link" href="upcoming-events.html">Upcoming Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="past-events.html">Past Events</a>
+                            <a class="nav-link active" aria-current="page" href="#">Past Events</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>
@@ -47,48 +47,61 @@
                 </div>
             </div>
         </nav>
-
+        <!-- Lower nav -->
+        <div class="false-carousel d-flex justify-content-around align-items-center">
+            <a href="upcoming-events.html" class="previous-next">&#8249;</a>
+            <a href="past-events.html" class="navbar-brand">
+                <h1>Past Events</h1>
+            </a>
+            <a href="contact.html" class="previous-next rounded">&#8250;</a>
+        </div>
     </header>
     <main>
-        <div id="app">
-            <section id="detail-section">
-                <h6>nothing</h6>
-                <div v-if="detailCard" id="detail-body">
-                    <div class="detail-container">
-                        <div class="detail-image">
-                            <img :src="detailCard.image" :alt="detailCard.name" class="shadow rounded img-fluid"
-                                id="event-image">
-                        </div>
-                        <div class="detail-description">
-                            <h4><b>{{detailCard.name}}</b></h4>
-                            <br><br>
-                            <p>{{detailCard.description}}</p>
-                            <br><br>
-                            <p>Date: {{detailCard.date}}</p>
-                            <p><em>Location: {{detailCard.place}}</em></p>
-                            <p><strong>Price: ${{detailCard.price}}</strong></p>
-                        </div>
+        <section>
+            <h6>nothing</h6>
+            <!-- Selection and search bar -->
+            <div class="mx-auto" style="width: 80%">
+                <div class="form-inline d-flex justify-content-between align-items-center">
+                  <template v-for="category of pastCategories">
+                    <div v-if="category" class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" :id="category" v-model="categoryEvents"
+                        :value="category" />
+                      <label class="form-check-label" :for="category">{{category}}</label>
                     </div>
-
-                    <div class="detail-container2 card shadow" style="width: 50vw;">
-                        <img :src="detailCard.image" :alt="detailCard.name" class="card-img-top shadow">
-                        <div class="card-body">
-                            <h4><b>{{detailCard.name}}</b></h4>
-                            <br>
-                            <p>{{detailCard.description}}</p>
-                            <br>
-                            <p>Date: {{detailCard.date}}</p>
-                            <p><em>Location: {{detailCard.place}}</em></p>
-                            <p><strong>Price: ${{detailCard.price}}</strong></p>
-                        </div>
-                    </div>
-                    <div class="detail-buttons">
-                        <button type="button" onclick="window.history.go(-1)" class="btn btn-info">Back</button>
-                        <a type="button" href="./contact.html" class="btn btn-warning">Contact us!</a>
-                    </div>
+                  </template>
+      
+                  <form class="form-inline">
+                    <input v-model="searchText" type="text" class="form-control-sm mr-sm-2 m-2" placeholder="Search event" />
+                  </form>
                 </div>
-            </section>
-        </div>
+              </div>
+              {{checkboxAndBarFilter}}
+      
+            <!-- Cards -->
+            
+        <div class="d-flex flex-wrap gap-5 justify-content-center p-5">
+            <div v-for="event of filterPastEvents" class="card h-100 shadow" style="width: 22rem">
+              <img :src="event.image" class="card-img-top shadow" :alt="event.name">
+              <div class="card-body">
+                <h5 class="card-title">{{event.name}}</h5>
+                <p class="card-text fst-italic fw-bold" style="color: #0dcaf0">
+                  Date: {{event.date}}
+                </p>
+                <p class="card-text">{{event.description}}</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center" style="height: 52px">
+                <p>Price ${{event.price}}</p>
+  
+                <a type="button" v-bind:href="'./detail.html?id=' + event._id" class="btn btn-outline-info">
+                  Info
+                </a>
+              </div>
+              <p v-if="events.length == 0" class="display-1 fw-bolder">
+                No results found, please modify filters
+              </p>
+            </div>
+          </div>
+        </section>
     </main>
     <footer>
         <div class="social">
@@ -104,11 +117,13 @@
             <a class="font-italic" href="https://mindhublab.com/course/view.php?id=368">FE09-TT</a>
         </p>
     </footer>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
-    <script src="scripts/main.js"></script>
-</body>
+        <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
+        <script src="scripts/main.js"></script>
+    </body>
 
 </html>

@@ -4,10 +4,10 @@ createApp({
   data() {
     return {
       urlApi: undefined,
-      id: undefined,
+      id: "",
       urlParameter: "",
-      parameter: undefined,
-      detailCard: undefined
+      parameter: "",
+      detailCard: "",
     };
   },
   created() {
@@ -18,7 +18,7 @@ createApp({
         this.urlParameter = location.search;
         this.parameter = new URLSearchParams(this.urlParameter);
         this.id = this.parameter.get("id");
-        this.detailCard = this.urlApi.find((event) => event._id == this.id);
+          this.detailCard = this.urlApi.find((event) => event._id == this.id);
       })
 
       .catch((error) => console.log(error.message));
