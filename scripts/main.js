@@ -13,12 +13,6 @@ createApp({
       urlParameter: "",
       parameter: "",
       detailCard: "",
-      pastEvents: "",
-      filterPastEvents: [],
-      upcomingEvents: "",
-      filterUpcomingEvents: [],
-      pastCategories: [],
-      upcomingCategories: [],
     };
   },
   created() {
@@ -39,15 +33,6 @@ createApp({
           this.parameter = new URLSearchParams(this.urlParameter);
           this.id = this.parameter.get("id");
           this.detailCard = this.events.find((event) => event._id == this.id);
-          // past events
-          this.pastEvents = this.events.filter(item => item.date < data.currentDate);
-          this.filterPastEvents = [...this.pastEvents];
-          this.pastCategories = [ ...new Set( this.pastEvents.map( element => element.category ) ) ]
-          // upcoming events
-          this.upcomingEvents = this.events.filter(item => item.date > data.currentDate);
-          this.filterUpcomingEvents = [...this.upcomingEvents];
-          this.upcomingCategories = [ ...new Set( this.upcomingEvents.map( element => element.category ) ) ]
-
         })
         .catch((error) => console.log(error.message));
     },
