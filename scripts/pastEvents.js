@@ -1,10 +1,3 @@
-// past events
-// this.pastEvents = this.events.filter((item) => item.date < data.currentDate);
-// this.filterPastEvents = [...this.pastEvents];
-// this.pastCategories = [
-//   ...new Set(this.pastEvents.map((element) => element.category)),
-// ];
-
 const { createApp } = Vue;
 
 createApp({
@@ -13,11 +6,10 @@ createApp({
       urlApi: "https://mindhub-xj03.onrender.com/api/amazing",
       events: [],
       pastEvents: [],
+      pastEventsFiltered: [],
       searchText: "",
       categories: [],
       categoryEvents: [],
-      searchText: "",
-      filterEvents: [],
     };
   },
   created() {
@@ -30,9 +22,11 @@ createApp({
         .then((data) => {
           events = data.events;
           this.events = events;
-          this.pastEvents = this.events.filter(
+          pastEvents = events.filter(
             (item) => item.date < data.currentDate
           );
+          this.pastEvents = pastEvents;
+          this.pastEventsFiltered = this.pastEvents;
           console.log(pastEvents);
           this.fetchingCategories(pastEvents);
         })
@@ -48,15 +42,15 @@ createApp({
   },
   computed: {
     checkboxAndBarFilter() {
-      let searchFilter = this.pastEvents.filter((event) =>
+      let searchFilter = this.pastEventsFiltered.filter((event) =>
         event.name.toLowerCase().includes(this.searchText.toLowerCase())
       );
       if (this.categoryEvents.length > 0) {
-        this.events = searchFilter.filter((event) =>
+        this.pastEvents = searchFilter.filter((event) =>
           this.categoryEvents.includes(event.category)
         );
       } else {
-        this.events = searchFilter;
+        this.pastEvents = searchFilter;
       }
     },
   },
