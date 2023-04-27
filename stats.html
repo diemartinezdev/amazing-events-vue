@@ -117,8 +117,8 @@
                         <tbody>
                             <tr v-for="event of pastFiltered">
                                 <td>{{event.category}}</td>
-                                <td>$ {{revenues(event.estimate, event.price)}}</td>
-                                <td>{{percentageOfAttendance(event.capacity, event.estimate)}}%</td>
+                                <td>$ {{revenues(event.assistance, event.price)}}</td>
+                                <td>{{percentageOfAttendance(event.capacity, event.assistance)}}%</td>
                             </tr>
                         </tbody>
                     </table>
